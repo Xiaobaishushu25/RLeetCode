@@ -21,7 +21,7 @@ pub fn max_area(height: Vec<i32>) -> i32 {
     let mut right = height.len()-1;
     let mut all_max_area = min(height[0], height[right])*(right as i32);
     while left < right {
-        println!("选择的左是{} 右是{}",height[left],height[right]);
+        // println!("选择的左是{} 右是{}",height[left],height[right]);
         // if height[left] > height[right] {
         //     right -= 1;
         // }else {

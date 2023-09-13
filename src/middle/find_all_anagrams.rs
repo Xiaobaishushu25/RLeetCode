@@ -21,7 +21,7 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
     let mut indexs = Vec::new();
     let len = target.len();
     while left + len <= s.len() {
-        let mut slice = &mut s[left.. left + len].chars().collect::<Vec<char>>();
+        let slice = &mut s[left.. left + len].chars().collect::<Vec<char>>();
         slice.sort_unstable();
         if slice==&target {
             indexs.push(left as i32);

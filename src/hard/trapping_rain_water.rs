@@ -102,7 +102,7 @@ pub fn compute_area(left:usize,right:usize,height:&Vec<i32>) -> i32{
     if left == right { return 0 }
     let min_item = min(height[left], height[right]);
     let mut block = 0;
-    &&height[left+1..right].iter().for_each( |x|{
+    let _ = &&height[left+1..right].iter().for_each( |x|{
         if *x>min_item { block+= min_item }else { block += *x };
     });
     let area = min_item * ((right - left-1) as i32) - block;

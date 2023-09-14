@@ -1,3 +1,5 @@
+use std::collections::VecDeque;
+
 #[cfg(test)]
 #[test]
 pub fn test_max_sliding_window(){
@@ -8,13 +10,44 @@ pub fn test_max_sliding_window(){
     // println!("{:?}", max_sliding_window(vec![1,3,-1,-3,5,3,6,7], 3));
     println!("{:?}", max_sliding_window(vec![1,3,1,2,0,5], 3));
 }
+///在第二版的解法中主要耗时在这种情况：当前窗口最大值是左值，即将滑出，进来的右值比将滑出的最大值小，这时不得不对这个窗口
+/// 切片并重新计算最大值。
+/// 想到用空间换时间，维护一个长度为k的有序数组，但是一直对一个数组排序也挺耗时的。
+///
+/// 看了题解发现用队列，维护简单，时间复杂度低
+///
+/// 窗口在滑动时，每进入一个新值，与队列末尾比较，若比末尾大，则末尾出队，直至末尾比新值大，新值入队。
+///
+/// 这样队列就是一个有序的从大到小排列。那么问题又来了，如果滑出值是队列最大值怎么办，所以用队列里存储索引。
+///
+///
 pub fn max_sliding_window(nums: Vec<i32>, k: i32) -> Vec<i32> {
     if nums.len()==1 { return vec![nums[0]] }
     let k = k as usize;
     let (mut left,mut right):(usize,usize) = (0,k-1);
-    let mut max_num = compute_max_num2(&nums[0..k]);
+    let mut deque = VecDeque::new();
+    for i in 0..k{
+        while !deque.is_empty() && nums[*deque.back().unwrap()]<nums[i]{
+            deque.pop_back();
+        }
+        deque.push_back(i);
+    }
     let mut max_vec = vec![];
-    max_vec.push(max_num.0);
+    max_vec.push(nums[*deque.front().unwrap()]);
+    while right < nums.len()-1 {
+        right += 1;
+        let i = nums[right];
+        while !deque.is_empty() && nums[*deque.back().unwrap()]<i{
+            deque.pop_back();
+        }
+        deque.push_back(right);
+        //判断当前最大值是否有效
+        if deque.front().unwrap()==&left {
+            deque.pop_front();
+        }
+        max_vec.push(nums[*deque.front().unwrap()]);
+        left += 1;
+    }
     max_vec
 }
 pub fn compute_max_num(mut nums: &[i32]) ->(i32, i32, i32, i32){
@@ -38,9 +71,13 @@ pub fn compute_max_num(mut nums: &[i32]) ->(i32, i32, i32, i32){
     max_num
 }
 ///右滑一下进入一个值a，左边同步出去一个值b，判断a是否比当前窗口内最大值还大。
+///
 /// 1.b是最大值，但是b滑出去后当前窗口内是否还有b？可以用（最大值，最大值数量）来记录
+///
 /// ①b大于一个，滑出去那么当前窗口最大值就是max（a，b）
+///
 /// ②b只有一个，滑出去了，若a>b还好，直接最大值是a，若a<b呢？当前窗口最大值以及最大值个数需要重新统计.
+///
 /// 时间 984ms 击败 5.66%使用 Rust 的用户
 /// 内存 3.33MB 击败 66.98%使用 Rust 的用户
 pub fn max_sliding_window2(nums: Vec<i32>, k: i32) -> Vec<i32> {

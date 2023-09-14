@@ -15,36 +15,6 @@ pub fn max_sliding_window(nums: Vec<i32>, k: i32) -> Vec<i32> {
     let mut max_num = compute_max_num2(&nums[0..k]);
     let mut max_vec = vec![];
     max_vec.push(max_num.0);
-    while right < nums.len()-1 {
-        right += 1;
-        let i = nums[right];
-        if i>max_num.0 {
-            max_num = (i,1);
-            max_vec.push(i);
-        }else if i==max_num.0 {
-            max_num.1+=1;
-            max_vec.push(i);
-        }else {
-            //此时滑进来的值比窗口内最大值小，需要判断将滑出去的值是不是最大值。
-            if nums[left] == max_num.0 {
-                if max_num.1 >1  {
-                    max_vec.push(max_num.0);
-                    max_num.1 -= 1;
-                }else {
-                    //窗口最大值要滑走了，判断次大值关系
-                    if i>max_num.2 {
-                        max_vec.push(i);
-
-                    }
-                    max_num = compute_max_num2(&nums[left+1..right+1]);
-                    max_vec.push(max_num.0);
-                }
-            }else {
-                max_vec.push(max_num.0);
-            }
-        }
-        left += 1;
-    }
     max_vec
 }
 pub fn compute_max_num(mut nums: &[i32]) ->(i32, i32, i32, i32){

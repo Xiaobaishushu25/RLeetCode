@@ -44,10 +44,27 @@
 mod tests {
     #[test]
     fn test_product_of_array_except_self(){
-
+        println!("{:?}", product_except_self(vec![1, 2, 3, 4]));
     }
-    fn product_of_array_except_self(){
-
+    ///最简单的方法自然是全部遍历一遍计算出所有元素积，然后除以每个元素自身就是需要的数组。
+    /// 但是题目不让用除法。
+    ///e 不会做 看题解，第一种:左右乘积列表
+    pub fn product_except_self(mut nums: Vec<i32>) -> Vec<i32> {
+        let len = nums.len();
+        let mut left = vec![0;len];
+        let mut right = vec![0;len];
+        left[0] = 1;
+        right[len -1] = 1;
+        for i in 1..len {
+            left[i] = left[i-1]*nums[i-1]
+        }
+        for i in (0..len-1).rev(){
+            right[i] = right[i+1] * nums[i+1];
+        }
+        for i in 0..len{
+            nums[i] = left[i] * right[i]
+        }
+        nums
     }
 }
    

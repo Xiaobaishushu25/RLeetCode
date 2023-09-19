@@ -14,7 +14,7 @@
 /// https://leetcode.cn/problems/minimum-window-substring/description/?envType=study-plan-v2&envId=top-100-liked
 #[cfg(test)]
 mod tests {
-    use std::collections::{HashMap, VecDeque};
+    use std::collections::{HashMap};
 
     #[test]
     fn test_min_window() {

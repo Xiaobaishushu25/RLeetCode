@@ -39,15 +39,16 @@ mod tests {
 
     #[test]
     fn test_merge(){
-        println!("{:?}", merge(vec![vec![1, 3], vec![2, 6], vec![8, 10], vec![15, 18]]));
+        // println!("{:?}", merge(vec![vec![1, 3], vec![2, 6], vec![8, 10], vec![15, 18]]));
         // println!("{:?}", merge(vec![vec![1, 4], vec![4, 5]]));
         // println!("{:?}", merge(vec![vec![1, 4], vec![0, 4]]));
+        // println!("{:?}", merge(vec![vec![1, 4], vec![0, 1]]));//[[0,4]]
         // println!("{:?}", merge(vec![vec![1, 4], vec![5, 6]]));
-        // println!("{:?}", merge(vec![vec![1, 4], vec![0, 0]]));
+        println!("{:?}", merge(vec![vec![1, 4], vec![0, 0]])); //[[0,0],[1,4]]
     }
     ///队列为空，直接push
     /// 队列不为空，拿出队列尾,若大
-    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    pub fn merge2(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];
         // let mut i = 0;
@@ -77,7 +78,7 @@ mod tests {
         }
         deque.into_iter().collect()
     }
-    pub fn merge2(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];
         let mut record = Vec::new();
@@ -86,23 +87,37 @@ mod tests {
                 record.push(0);
             }
             for i in interval[0]..interval[1]+1{
-                record[i as usize] = 1;
+                if i==interval[1]&&record[i as usize]!=1 {
+                    record[i as usize] = 2;
+                }else {
+                    record[i as usize] = 1;
+                }
             }
         }
         let mut flag = false;
         let (mut left,mut right) = (0,0);
-        println!("{:?}",record);
+        // println!("{:?}",record);
         for i in 0..record.len(){
             if record[i] ==1&&!flag {
                 left = i;
                 flag = true
-            }else if record[i] ==0 &&flag {
-                right = i-1;
+            }else if record[i] ==2 &&flag {
+                right = i;
                 flag = false;
                 result.push(vec![left as i32,right as i32])
-            }else if record[i]==1&&i==record.len()-1 {
-                result.push(vec![left as i32,i as i32])
+            }else if record[i]==2 &&!flag{
+                result.push(vec![i as i32,i as i32]);
             }
+            // if record[i] ==1&&!flag {
+            //     left = i;
+            //     flag = true
+            // }else if record[i] ==0 &&flag {
+            //     right = i-1;
+            //     flag = false;
+            //     result.push(vec![left as i32,right as i32])
+            // }else if record[i]==2&&i==record.len()-1 {
+            //     result.push(vec![left as i32,i as i32])
+            // }
         }
         result
     }

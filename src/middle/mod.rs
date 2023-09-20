@@ -5,3 +5,4 @@ pub mod find_all_anagrams;
 pub mod subarray_sum_equals_k;
 mod maximum_subarray;
 mod product_of_array_except_self;
+mod merge_intervals;

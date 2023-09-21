@@ -46,8 +46,46 @@ mod tests {
         // println!("{:?}", merge(vec![vec![1, 4], vec![5, 6]]));
         println!("{:?}", merge(vec![vec![1, 4], vec![0, 0]])); //[[0,0],[1,4]]
     }
+    ///纯纯自己写的
+    /// 时间 0ms 击败100%使用RUst的用户
+    /// 内存 2.6Mb 击败100%使用RUst的用户
+    /// 把
+    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+        if intervals.len()==1 { return intervals }
+        let mut result = vec![];
+        let mut record = Vec::new();
+        for interval in intervals {
+            while record.len() <= interval[1] as usize {
+                record.push(0);
+            }
+            for i in interval[0]..interval[1]+1{
+                //把最右边值设置为2，且需要当前位置值不是1
+                if i==interval[1]&&record[i as usize]!=1 {
+                    record[i as usize] = 2;
+                }else {
+                    record[i as usize] = 1;
+                }
+            }
+        }
+        let mut flag = false;
+        let (mut left,mut right) = (0,0);
+        // println!("{:?}",record);
+        for i in 0..record.len(){
+            if record[i] ==1&&!flag {
+                left = i;
+                flag = true
+            }else if record[i] ==2 &&flag {
+                right = i;
+                flag = false;
+                result.push(vec![left as i32,right as i32])
+            }else if record[i]==2 &&!flag{
+                result.push(vec![i as i32,i as i32]);
+            }
+        }
+        result
+    }
     ///队列为空，直接push
-    /// 队列不为空，拿出队列尾,若大
+    /// 队列不为空，拿出队列尾,若大...太复杂放弃了
     pub fn merge2(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];
@@ -78,49 +116,7 @@ mod tests {
         }
         deque.into_iter().collect()
     }
-    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        if intervals.len()==1 { return intervals }
-        let mut result = vec![];
-        let mut record = Vec::new();
-        for interval in intervals {
-            while record.len() <= interval[1] as usize {
-                record.push(0);
-            }
-            for i in interval[0]..interval[1]+1{
-                if i==interval[1]&&record[i as usize]!=1 {
-                    record[i as usize] = 2;
-                }else {
-                    record[i as usize] = 1;
-                }
-            }
-        }
-        let mut flag = false;
-        let (mut left,mut right) = (0,0);
-        // println!("{:?}",record);
-        for i in 0..record.len(){
-            if record[i] ==1&&!flag {
-                left = i;
-                flag = true
-            }else if record[i] ==2 &&flag {
-                right = i;
-                flag = false;
-                result.push(vec![left as i32,right as i32])
-            }else if record[i]==2 &&!flag{
-                result.push(vec![i as i32,i as i32]);
-            }
-            // if record[i] ==1&&!flag {
-            //     left = i;
-            //     flag = true
-            // }else if record[i] ==0 &&flag {
-            //     right = i-1;
-            //     flag = false;
-            //     result.push(vec![left as i32,right as i32])
-            // }else if record[i]==2&&i==record.len()-1 {
-            //     result.push(vec![left as i32,i as i32])
-            // }
-        }
-        result
-    }
+    ///不对
     pub fn merge3(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];

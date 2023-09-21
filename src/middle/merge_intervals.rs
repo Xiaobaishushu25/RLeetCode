@@ -81,6 +81,16 @@ mod tests {
             }else if record[i]==2 &&!flag{
                 result.push(vec![i as i32,i as i32]);
             }
+            // if record[i] ==1&&!flag {
+            //     left = i;
+            //     flag = true
+            // }else if record[i] ==0 &&flag {
+            //     right = i-1;
+            //     flag = false;
+            //     result.push(vec![left as i32,right as i32])
+            // }else if record[i]==2&&i==record.len()-1 {
+            //     result.push(vec![left as i32,i as i32])
+            // }
         }
         result
     }

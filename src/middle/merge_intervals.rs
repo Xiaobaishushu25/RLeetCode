@@ -78,6 +78,7 @@ mod tests {
         }
         deque.into_iter().collect()
     }
+    //我自己想的，不知道是什么思想
     pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];

@@ -51,7 +51,7 @@ pub fn max_sliding_window(nums: Vec<i32>, k: i32) -> Vec<i32> {
     }
     max_vec
 }
-pub fn compute_max_num(mut nums: &[i32]) ->(i32, i32, i32, i32){
+pub fn compute_max_num(nums: &[i32]) ->(i32, i32, i32, i32){
     let mut max_num:(i32, i32, i32, i32) = if nums[0]>nums[1]{
         (nums[0],1,nums[1],1)
     }else {
@@ -116,7 +116,7 @@ pub fn max_sliding_window2(nums: Vec<i32>, k: i32) -> Vec<i32> {
     }
     max_vec
 }
-pub fn compute_max_num2(mut nums: &[i32]) ->(i32, i32){
+pub fn compute_max_num2(nums: &[i32]) ->(i32, i32){
     let mut max_num = (nums[0],1);
     nums[1..].iter().for_each(|x|{
         if *x>max_num.0 {
@@ -131,7 +131,6 @@ pub fn compute_max_num2(mut nums: &[i32]) ->(i32, i32){
 pub fn max_sliding_window3(nums: Vec<i32>, k: i32) -> Vec<i32> {
     let mut left:usize = 0;
     let k = k as usize;
-    let mut max_num = *nums[0..k].iter().max().unwrap();
     let mut max_vec = vec![];
     while left + k <= nums.len()  {
         let x = &nums[left..left + k].iter().max().unwrap();

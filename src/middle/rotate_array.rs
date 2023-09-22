@@ -55,7 +55,7 @@ mod tests {
     fn test_rotate_array(){
         rotate(&mut vec![1,2,3,4,6,7],3);
     }
-    pub fn rotate(mut nums: &mut Vec<i32>, k: i32) {
+    pub fn rotate(nums: &mut Vec<i32>, k: i32) {
         let mut deque = nums.drain(..).collect::<VecDeque<_>>();
         for _ in 0..k {
             let back = deque.pop_back().unwrap();
@@ -66,7 +66,8 @@ mod tests {
 
 
 
-    pub fn rotate2(mut nums: &mut Vec<i32>, k: i32) {
+    #[allow(dead_code)]
+    pub fn rotate2(nums: &mut Vec<i32>, k: i32) {
         let mut deque = nums.iter().collect::<VecDeque<&i32>>();
         for _ in 0..k {
             let back = deque.pop_back().unwrap();

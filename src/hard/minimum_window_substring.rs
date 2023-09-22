@@ -93,6 +93,7 @@ mod tests {
         result
     }
     ///复制来的，比我快的有限，不看了 测了一次14ms ，我最好是16ms
+    #[allow(dead_code)]
     pub fn min_window2(s: String, t: String) -> String {
         let s: Vec<char> = s.chars().collect();
         let mut overflow = HashMap::new();

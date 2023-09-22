@@ -15,7 +15,6 @@ mod tests {
     ///时间 8ms 击败 96.83%使用 Rust 的用户
     /// 内存 2.92MB 击败 100.00%使用 Rust 的用户
     pub fn max_sub_array(nums: Vec<i32>) -> i32 {
-        let mut point = 0;
         let mut max = nums[0];
         let mut sum = 0;
         for num in nums{

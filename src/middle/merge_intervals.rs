@@ -50,7 +50,7 @@ mod tests {
     /// 时间 0ms 击败100%使用RUst的用户
     /// 内存 2.6Mb 击败100%使用RUst的用户
     /// 把
-    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    pub fn merge(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];
         let mut record = Vec::new();
@@ -68,7 +68,8 @@ mod tests {
             }
         }
         let mut flag = false;
-        let (mut left,mut right) = (0,0);
+        let mut left = 0;
+        let mut right;
         // println!("{:?}",record);
         for i in 0..record.len(){
             if record[i] ==1&&!flag {
@@ -96,7 +97,8 @@ mod tests {
     }
     ///队列为空，直接push
     /// 队列不为空，拿出队列尾,若大...太复杂放弃了
-    pub fn merge2(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    #[allow(dead_code)]
+    pub fn merge2(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];
         // let mut i = 0;
@@ -127,6 +129,7 @@ mod tests {
         deque.into_iter().collect()
     }
     ///不对
+    #[allow(dead_code)]
     pub fn merge3(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         if intervals.len()==1 { return intervals }
         let mut result = vec![];

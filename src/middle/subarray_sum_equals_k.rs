@@ -40,10 +40,11 @@ pub fn subarray_sum(nums: Vec<i32>, k: i32) -> i32 {
 ///内存2.19MB 击败 84.62%使用 Rust 的用户
 /// 固定左边，一直往右搜索到最后
 /// 本来考虑了一下双指针，但是双指针要求移动指针要有规律，这个数组正负都有，不好确定移动方向
-pub fn subarray_sum2(mut nums: Vec<i32>, k: i32) -> i32 {
-    let (mut left,mut right) = (0,0);
+pub fn subarray_sum2(nums: Vec<i32>, k: i32) -> i32 {
+    let mut left = 0;
+    let mut right;
     let mut count = 0;
-    let mut sum = 0;
+    let mut sum;
     while left < nums.len() {
         right = left+1;
         sum = nums[left];

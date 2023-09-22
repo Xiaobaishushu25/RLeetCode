@@ -41,12 +41,35 @@
 ///url: https://leetcode-cn.com/problems/first-missing-positive/description
 #[cfg(test)]
 mod tests {
+    use std::iter::MapWhile;
+    use crate::middle::find_all_anagrams::find_anagrams;
+
     #[test]
     fn test_first_missing_positive(){
-
+        // println!("{}", first_missing_positive(vec![1, 2, 0]));
+        // println!("{}", first_missing_positive(vec![3,4,-1,1]));
+        println!("{}", first_missing_positive(vec![7,8,9,11,12]));
     }
     pub fn first_missing_positive(nums: Vec<i32>) -> i32 {
-
+        let mut record = vec![];
+        for num in nums {
+            // println!("{},{num}",record.len());
+            while record.len()<(num.abs()+1) as usize {
+                record.push(false)
+            }
+            if num>=0 {
+                println!("{},{num}",record.len());
+                record[num as usize] = true;
+            }
+        }
+        record.push(false);
+        for(index,value) in record.iter().enumerate(){
+            // println!("{index} {value}");
+            if !*value&&index!=0 {
+                return index as i32;
+            }
+        }
+        0
     }
 }
    

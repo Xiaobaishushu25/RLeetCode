@@ -77,7 +77,8 @@ mod tests {
         // 元素的所有权，而不是改变迭代器元素的类型。
         // 为了解决这个问题，你可以使用deque.into_iter().cloned().collect::<Vec<i32>>()来获取元素的所有权并将
         // 其收集到一个新的Vec<i32>中。这样，你就不会再遇到类型不匹配的问题
-        *nums = deque.into_iter().to_owned().collect::<Vec<i32>>();
+        // *nums = deque.into_iter().to_owned().collect::<Vec<i32>>();
+        *nums = deque.into_iter().cloned().collect::<Vec<i32>>();
     }
 }
    

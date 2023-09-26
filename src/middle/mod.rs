@@ -7,3 +7,4 @@ mod maximum_subarray;
 mod product_of_array_except_self;
 mod merge_intervals;
 mod rotate_array;
+mod set_matrix_zeroes;

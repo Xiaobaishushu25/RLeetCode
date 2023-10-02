@@ -56,7 +56,7 @@ mod tests {
     ///
     pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
         let mut temp;
-        let mut index = 0;
+        let mut index ;
         let mut n = 0;
         let len = matrix[0].len();
         let mut flag = 0;

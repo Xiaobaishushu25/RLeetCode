@@ -45,10 +45,35 @@
 mod tests {
     #[test]
     fn test_search_a_2d_matrix_ii(){
-
+        println!("{}", search_matrix(vec![vec![1, 4, 7, 11, 15], vec![2, 5, 8, 12, 19], vec![3, 6, 9, 16, 22], vec![10, 13, 14, 17, 24]],10));
+        // println!("{}", search_matrix( vec![vec![-5]],-5));
     }
-    fn search_a_2d_matrix_ii(){
-
+    ///用时0ms
+    /// 不是最好解法，最好解法是类似二叉树深度搜索
+    pub fn search_matrix(matrix: Vec<Vec<i32>>, target: i32) -> bool {
+        if matrix[0][0]>target||matrix.last().unwrap().last().unwrap()< &target {
+            return false;
+        }
+        for i in 0..matrix.len() {
+            let m = &matrix[i];
+                if (m.last().unwrap()>= &target) && (m[0]<=target) {
+                    for j in 0..m.len() {
+                        if m[j]==target {
+                            return true
+                        }else if m[j+1]>target&&m[j]<target {
+                            for k in (0..j+1).rev() {
+                                for l in i+1..matrix.len() {
+                                    if matrix[l][k]==target {
+                                        return true
+                                    }
+                                }
+                            }
+                            return false
+                        }
+                    }
+                }
+        }
+        false
     }
 }
    
